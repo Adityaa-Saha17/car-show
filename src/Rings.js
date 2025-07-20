@@ -6,9 +6,10 @@ export function Rings() {
   const itemRef = useRef([]);
 
   useFrame((state) => {
+    let elapsed = state.clock.getElapsedTime();
     for (let i = 0; i < itemRef.current.length; i++) {
       let mesh = itemRef.current[i];
-      let a = (i - 7) * 3.5;
+      let a = (i - 7) * 3.5 + ((elapsed * 0.4) % 3.5) * 2;
       mesh.position.set(0, 0, -a);
 
       let dist = Math.abs(a);
@@ -38,7 +39,6 @@ export function Rings() {
       {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map((v, i) => (
         <mesh
           castShadow
-          receiveShadow
           position={[0, 0, 0]}
           key={i}
           ref={(el) => (itemRef.current[i] = el)}

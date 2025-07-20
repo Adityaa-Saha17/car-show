@@ -1,4 +1,4 @@
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import React, { useEffect } from "react";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
@@ -16,9 +16,23 @@ export function Car({ envMap }) {
         obj.material.envMap = envMap;
         obj.material.envMapIntensity = 40;
         obj.material.needsUpdate = true;
+        obj.castShadow = true;
+        obj.material.roughness = 0
+        obj.material.metalness = 1;
       }
     });
   }, [gltf, envMap]);
+
+
+  useFrame((state, delta) => {
+    let t = state.clock.getElapsedTime();
+
+    let group = gltf.scene.children[0].children[0].children[0];
+    group.children[0].rotation.x = t*2;
+    group.children[2].rotation.x = t*2;
+    group.children[4].rotation.x = t*2;
+    group.children[6].rotation.x = t*2;
+  })
 
   return <primitive object={gltf.scene} />;
 }
