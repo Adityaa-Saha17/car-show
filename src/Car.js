@@ -17,8 +17,8 @@ export function Car({ envMap }) {
         obj.material.envMapIntensity = 40;
         obj.material.needsUpdate = true;
         obj.castShadow = true;
-        obj.material.roughness = 0
-        obj.material.metalness = 1;
+        // obj.material.roughness = 0
+        // obj.material.metalness = 1;
       }
     });
   }, [gltf, envMap]);
